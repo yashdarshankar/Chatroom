@@ -12,7 +12,7 @@ base('Features').select({
     records.forEach(function(record) {
         console.log('Retrieved', record.get('name'));
         //box.innerHTML += "<br>" + record.get('message');
-        if(record.get('name') == "Yash"){
+        if(record.get('name') == name){
             box.innerHTML += "<br><div class='right'>"+"You : "+record.get('message') +"</div>"
         }
         else{

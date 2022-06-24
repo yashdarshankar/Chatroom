@@ -1,0 +1,14 @@
+.shadow-lg{
+    border-radius: 10px;
+}
+
+.box1{
+    margin: auto;
+    width: 50%;
+background-color: #ececec;
+}
+
+.CardHeading{
+    font-size: 20px;
+    font-weight: bold;
+}

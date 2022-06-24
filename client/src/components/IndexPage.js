@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './style/Navbar.css'
+import './style/index.css'
 
 import Navbar from './Navbar'
 import LoginCard from './LoginCard'

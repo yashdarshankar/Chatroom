@@ -9,9 +9,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 // import { color } from '@mui/system';
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import './style/ButtonAppBar.css'
 
-export default function ButtonAppBar() {
+
+export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,8 +28,8 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Yash Chat App
           </Typography>
-          <Button className='signupbtn' color='inherit'>Signup</Button>
-          <Button className='signupbtn' color='inherit'>Login</Button>
+          <Button className='signupbtn' color='inherit'>Sign up</Button>
+          <Button className='signupbtn' color='inherit'>Log in</Button>
 
         </Toolbar>
       </AppBar>

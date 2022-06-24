@@ -1,19 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import ButtonAppBar from "./components/ButtonAppBar";
+import IndexPage from "./components/IndexPage";
 
-import MediaCard from "./components/MediaCard";
+
 function App() {
   return (
     <>
       <Router>
         <Routes>
-
-          <Route path="/" element={<ButtonAppBar />} />
-
-          <Route path="/MediaCard" element={<MediaCard />} />
-    
+          <Route path="/" element={<IndexPage/>} />
 
         </Routes>
       </Router>

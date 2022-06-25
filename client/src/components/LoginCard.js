@@ -1,27 +1,16 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
 
-import './style/cards.css'
+
+// import './style/cards.css'
+
 export default function LoginCard() {
   return (
-    <div className='shadow-lg'>
-    <Card >
-      <CardMedia
-        component="img"
-        height="250"
-        image={require('./images/LoginRegisterCardBg.jpg')}
-        alt="best bg Image"
-      />
-      <CardContent>
-        <div className=' CardHeading text-center'>
-        <Typography gutterBottom variant="h5" component="div">
-          Login User
-        </Typography>
-        </div>
-        <div className='container w-50'>
+    
+      <div class="card shadow-lg">
+      <img class="card-img-top" src={require('./images/LoginRegisterCardBg.jpg')} alt="bgimage"/>
+      <div class="card-body">
+        <h5 class="card-title text-center">Register User</h5>
+        <div className='w-100'>
           <form>
             <div className="mb-3">
               <label for="exampleInputEmail1" className="form-label">Username</label>
@@ -34,11 +23,11 @@ export default function LoginCard() {
             <button type="submit" className="btn btn-primary w-100 mb-5">Submit</button>
           </form>
         </div>
-
-      </CardContent>
-
-    </Card>
+      </div>
     </div>
+   
+
+
 
   );
 }

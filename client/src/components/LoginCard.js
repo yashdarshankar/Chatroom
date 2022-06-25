@@ -25,26 +25,15 @@ export default function LoginCard() {
     console.log(artical);
       try{
         await axios.post(url,artical).then((res) => {
-          console.log(res);
-          // redirect process after successful login
-          // window.location.href = "/";
           sessionStorage.setItem("token",res.data.token)
           sessionStorage.setItem("username",res.data.username)
-          console.log(res.data.token)
-          console.log(res.data.username)
           window.location.href = "/dashboard";
         })
 
       }catch(error){
-          console.log("error")
+          swal("Login Failed", "Username or Password enterred is Invalid", "error");
+
       }
-
-    // if(password === repassword){
-
-      
-    // }else{
-    //   setOpen(true)
-    // }
     
   }
 

@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+
+import swal from 'sweetalert';
 
 import axios from 'axios';
 
@@ -24,17 +26,20 @@ export default function Dashboard() {
                     console.log(res.data);
                     if(res.data.status === 'True'){
                         // window.location.href = "/";
-                        console.log("logged in ")
+                        sessionStorage.setItem("username",res.data.status)
+                        // console.log("logged in")
                     }
                     
-                        
+                    
                     })
 
                 }catch(error){
-                    // console.log("error")
-                    window.location.href = "/";
-                    console.log("not logged in ")
-                    
+
+                    swal("Session Expired", "Login again to enjoy", "error")
+                        .then(() => {
+                            window.location.href = "/";
+                    });
+
                 }
         }
 

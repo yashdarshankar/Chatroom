@@ -1,12 +1,14 @@
 #flask app template 
-from flask import Flask,request,session,jsonify
+from flask import Flask,request,session,jsonify,make_response
+import json
 import mysql.connector
-
+import jwt
+from datetime import datetime, timedelta
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.secret_key = 'iamfuckingcreazy'
-
-
+CORS(app)
 # this is configuration for sql database connection 
 mydb = mysql.connector.connect(
 	host = "localhost", # your host address (yourservice.com)
@@ -17,12 +19,37 @@ mydb = mysql.connector.connect(
 
 cursor = mydb.cursor()
 
+@app.route('/check',methods = ['POST'])
+def check():
+    if request.method == 'POST':
+        # get data from front end session stroage
+        dump = request.get_json()
+        # get token from session 
+        token = dump['token']
+        # decode token and find username from it
+        new = jwt.decode(token, app.config['SECRET_KEY'])
+        # username = username encoded in jwt token 
+        username =  new['public_id']
+        # get username from database 
+        cursor.execute("SELECT username FROM users WHERE username = '"+username+"';")
+        data = cursor.fetchall()
+        # got list of tuple from sql db
+        data = data[0]
+        # create var database user to verify further
+        dbusername = data[0]
+        # check if user from database and local storage are matching
+        if (dbusername != username):
+            return make_response(jsonify({'status' : 'Flase'}))
+        else:
+            return make_response(jsonify({'status' : 'True'}))
+
 # login api route 
 @app.route('/login' , methods=['POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        dump = request.get_json()
+        username = dump['username']
+        password =  dump['password']
         cursor.execute("SELECT * FROM users WHERE username = '"+username+"' AND password = '"+password+"';")
         data = cursor.fetchall()
         if (len(data)==0 or len(data)>1):
@@ -30,8 +57,12 @@ def login():
             resp.status_code = 400
             return resp
         else:
+            # added username in session
             session['username'] = username
-            return jsonify({'message' : 'You are logged in successfully'})
+            # return jwt token 
+            token = jwt.encode({'public_id': username,'exp' : datetime.utcnow() + timedelta(hours= 12)}, app.config['SECRET_KEY'])
+            
+            return make_response(jsonify({'token' : token.decode('UTF-8'),'username' : username }), 201)
 
 #  register api route 
 @app.route('/register' , methods=['POST'])

@@ -72,7 +72,7 @@ def register():
         if request.form['password'] != request.form['confpassword']:
             resp = jsonify({'message':'Password and Confirm Password does not match'})
             resp.status_code = 401
-            return resp
+            return make_response(resp)
         #check if username already exists
         else:
             username = request.form['username']
@@ -81,7 +81,7 @@ def register():
             if user:
                 resp = jsonify({'message':'User already exists'})
                 resp.status_code = 401
-                return resp
+                return make_response(resp)
             else:
                 name = request.form['name']
                 email = request.form['email']
@@ -90,14 +90,14 @@ def register():
                 password = request.form['password']
                 cursor.execute("INSERT INTO users (name,email,contact,username,password) VALUES (%s,%s,%s,%s,%s)",(name,email,contact,username,password))
                 mydb.commit()
-                jsonify({'message' : 'You are now registered and can log in'})
+                return make_response(jsonify({'message' : 'You are now registered and can log in'}))
 
 
 # logout route
 @app.route('/logout', methods=['GET','POST'])
 def logout():
     session.clear()
-    return jsonify({'message' : 'You successfully logged out'})
+    return make_response(jsonify({'message' : 'You successfully logged out'}))
 
 
 # main app running function 
